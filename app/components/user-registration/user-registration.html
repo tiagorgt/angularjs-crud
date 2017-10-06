@@ -1,0 +1,74 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Cadastro de Usuário</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div ng-form="userForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group required" ng-class="{ 'has-error': $ctrl.hasError(userForm.name) }">
+                                <label class="control-label" for="name">Nome</label>
+                                <input type="text" id="name" name="name" class="form-control" ng-model="$ctrl.user.name" maxlength="255" required>
+                                <ng-messages ng-if="$ctrl.hasError(userForm.name)" for="userForm.name.$error" role="alert" class="help-block">
+                                    <ng-message when="required">Campo obrigatório</ng-message>
+                                </ng-messages>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group required" ng-class="{ 'has-error': $ctrl.hasError(userForm.email) }">
+                                <label class="control-label" for="email">E-mail</label>
+                                <input type="email" id="email" name="email" class="form-control" ng-model="$ctrl.user.email" maxlength="255" required>
+                                <ng-messages ng-if="$ctrl.hasError(userForm.email)" for="userForm.email.$error" role="alert" class="help-block">
+                                    <ng-message when="required">Campo obrigatório</ng-message>
+                                </ng-messages>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group required" ng-class="{ 'has-error': $ctrl.hasError(userForm.cpf) }">
+                                <label class="control-label" for="cpf">CPF</label>
+                                <input id="cpf" name="cpf" class="form-control" ng-model="$ctrl.user.cpf" ui-br-cpf-mask required>
+                                <ng-messages ng-if="$ctrl.hasError(userForm.cpf)" for="userForm.cpf.$error" role="alert" class="help-block">
+                                    <ng-message when="required">Campo obrigatório</ng-message>
+                                    <ng-message when="cpf">CPF inválido</ng-message>
+                                </ng-messages>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="{ 'has-error': $ctrl.hasError(userForm.phone) }">
+                                <label class="control-label" for="phone">Telefone</label>
+                                <input type="text" id="phone" name="phone" class="form-control" ng-model="$ctrl.user.phone" ui-br-phone-number>
+                                <ng-messages ng-if="$ctrl.hasError(userForm.phone)" for="userForm.phone.$error" role="alert" class="help-block">
+                                    <ng-message when="brPhoneNumber">Telefone inválido</ng-message>
+                                </ng-messages>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group required" ng-class="{ 'has-error': $ctrl.hasError(userForm.position) }">
+                                <label class="control-label" for="position">Função</label>
+                                <select id="position" name="position" class="form-control" ng-model="$ctrl.user.position" required></select>
+                                <ng-messages ng-if="$ctrl.hasError(userForm.position)" for="userForm.position.$error" role="alert" class="help-block">
+                                    <ng-message when="required">Campo obrigatório</ng-message>
+                                </ng-messages>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group required" ng-class="{ 'has-error': $ctrl.hasError(userForm.profile) }">
+                                <label class="control-label" for="profile">Perfil</label>
+                                <select id="profile" name="profile" class="form-control" ng-model="$ctrl.user.profile" required></select>
+                                <ng-messages ng-if="$ctrl.hasError(userForm.profile)" for="userForm.profile.$error" role="alert" class="help-block">
+                                    <ng-message when="required">Campo obrigatório</ng-message>
+                                </ng-messages>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" ng-click="$ctrl.save(userForm)">Salvar</button>
+                <button class="btn btn-link" ng-click="$ctrl.back()">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,10 +5,22 @@ angular.module('app', [
   'ngAnimate',
   'ngTouch',
   'ui.bootstrap',
-  'ngTable'
+  'ngTable',
+  'ui.mask',
+  'ui.utils.masks',
+  'ngMessages'
 ]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $locationProvider.hashPrefix('!');
+  config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+    $locationProvider.hashPrefix('!');
 
-  $routeProvider.otherwise({redirectTo: '/users'});
-}]);
+    $routeProvider
+      .when('/user-list', {
+        template: '<user-list></user-list>'
+      })
+      .when('/user-registration', {
+        template: '<user-registration></user-registration>'
+      })
+      .otherwise({
+        redirectTo: '/user-list'
+      });
+  }]);

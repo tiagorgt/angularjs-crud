@@ -1,0 +1,58 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Filtro</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div ng-form="searchForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Nome</label>
+                                <input type="text" id="name" name="name" class="form-control" ng-model="$ctrl.filter.name" maxlength="255">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label" for="status">Situação</label>
+                                <select id="status" name="status" class="form-control" ng-model="$ctrl.filter.status"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-default" ng-click="$ctrl.addUser()">Adicionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Usuários</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <button class="btn btn-default" ng-click="$ctrl.addUser()">Adicionar</button>
+                </div>
+                <div class="table-responsive">
+                    <table ng-table-dynamic="$ctrl.tableParams with $ctrl.cols" class="table table-hover" show-filter="false">
+                        <tr ng-repeat="row in $data">
+                            <td ng-repeat="col in $columns">
+                                <span>{{ row[col.field] }}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
