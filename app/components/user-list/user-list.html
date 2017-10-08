@@ -1,3 +1,5 @@
+<div uib-alert ng-repeat="alert in $ctrl.getAlerts()" class="alert" ng-class="'alert-' + (alert.type)" close="$ctrl.closeAlert($index)">{{alert.msg}}</div>
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Filtro</h3>
@@ -16,16 +18,19 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label" for="status">Situação</label>
-                                <select id="status" name="status" class="form-control" ng-model="$ctrl.filter.status"></select>
+                                <select id="status" name="status" class="form-control" ng-model="$ctrl.filter.status" ng-options="s.key as s.value for s in $ctrl.statusList"></select>
                             </div>
                         </div>
                         <div class="col-md-3">
-
+                            <div class="form-group">
+                                <label class="control-label" for="profile">Perfil</label>
+                                <select id="profile" name="profile" class="form-control" ng-model="$ctrl.filter.profile" ng-options="p.key as p.value for p in $ctrl.profileList"></select>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-default" ng-click="$ctrl.addUser()">Adicionar</button>
+                    <button class="btn btn-default" ng-click="$ctrl.onSearch()">Pesquisar</button>
                 </div>
             </div>
         </div>
@@ -41,15 +46,19 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <button class="btn btn-default" ng-click="$ctrl.addUser()">Adicionar</button>
+                    <button class="btn btn-primary" ng-click="$ctrl.addUser()">Adicionar</button>
                 </div>
                 <div class="table-responsive">
                     <table ng-table-dynamic="$ctrl.tableParams with $ctrl.cols" class="table table-hover" show-filter="false">
-                        <tr ng-repeat="row in $data">
+                        <tr ng-if="$data.length > 0" ng-repeat="row in $data">
                             <td ng-repeat="col in $columns">
-                                <span>{{ row[col.field] }}</span>
+                                <span ng-if="col.type == 'text'">{{ row[col.field] }}</span>
+                                <span ng-if="col.type == 'profile'">{{ $ctrl.profileService.getByKey(row[col.field]).value }}</span>
+                                <span ng-if="col.type == 'status'"><input type="checkbox" ng-model="row.status" ng-true-value="'A'" ng-false-value="'I'" ng-change="$ctrl.changeStatus(row)"></span>
+                                <span ng-if="col.type == 'action'"><button class="btn btn-default btn-sm" ng-click="$ctrl.edit(row)"><i class="fa fa-edit"></i></button>&nbsp<button class="btn btn-danger btn-sm" ng-click="$ctrl.remove(row)"><i class="fa fa-trash"></i></button></span>
                             </td>
                         </tr>
+                        <tr ng-if="$data.length == 0"><td colspan="4">Nenhum usuário encontrado</td></tr>
                     </table>
                 </div>
             </div>

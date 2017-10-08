@@ -8,9 +8,12 @@ angular.module('app', [
   'ngTable',
   'ui.mask',
   'ui.utils.masks',
-  'ngMessages'
+  'ngMessages',
+  'angular-loading-bar'
 ]).
-  config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+  config(['$locationProvider', '$routeProvider', 'cfpLoadingBarProvider', function ($locationProvider, $routeProvider, cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = false;
+    
     $locationProvider.hashPrefix('!');
 
     $routeProvider
@@ -20,7 +23,14 @@ angular.module('app', [
       .when('/user-registration', {
         template: '<user-registration></user-registration>'
       })
+      .when('/user-registration/:id', {
+        template: '<user-registration></user-registration>'
+      })
       .otherwise({
         redirectTo: '/user-list'
       });
-  }]);
+  }])
+  .constant('config', {
+    urlApi: 'http://localhost:8080'
+  });
+

@@ -1,3 +1,5 @@
+<div uib-alert ng-repeat="alert in $ctrl.getAlerts()" class="alert" ng-class="'alert-' + (alert.type)" close="$ctrl.closeAlert($index)">{{alert.msg}}</div>
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Cadastro de Usuário</h3>
@@ -5,6 +7,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">
+                <p class="text-danger">* Campos Obrigatórios</p>
                 <div ng-form="userForm">
                     <div class="row">
                         <div class="col-md-6">
@@ -49,7 +52,7 @@
                         <div class="col-md-3">
                             <div class="form-group required" ng-class="{ 'has-error': $ctrl.hasError(userForm.position) }">
                                 <label class="control-label" for="position">Função</label>
-                                <select id="position" name="position" class="form-control" ng-model="$ctrl.user.position" required></select>
+                                <select id="position" name="position" class="form-control" ng-model="$ctrl.user.position" ng-options="p as p.name for p in $ctrl.positionList track by p.id" required></select>
                                 <ng-messages ng-if="$ctrl.hasError(userForm.position)" for="userForm.position.$error" role="alert" class="help-block">
                                     <ng-message when="required">Campo obrigatório</ng-message>
                                 </ng-messages>
@@ -58,7 +61,7 @@
                         <div class="col-md-3">
                             <div class="form-group required" ng-class="{ 'has-error': $ctrl.hasError(userForm.profile) }">
                                 <label class="control-label" for="profile">Perfil</label>
-                                <select id="profile" name="profile" class="form-control" ng-model="$ctrl.user.profile" required></select>
+                                <select id="profile" name="profile" class="form-control" ng-model="$ctrl.user.profile"  ng-options="p.key as p.value for p in $ctrl.profileList" required></select>
                                 <ng-messages ng-if="$ctrl.hasError(userForm.profile)" for="userForm.profile.$error" role="alert" class="help-block">
                                     <ng-message when="required">Campo obrigatório</ng-message>
                                 </ng-messages>

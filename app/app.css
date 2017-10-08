@@ -9,3 +9,7 @@
     margin-left: 5px;
     top: 0;
 }
+
+tr th.header-left {
+    text-align: left;
+}
